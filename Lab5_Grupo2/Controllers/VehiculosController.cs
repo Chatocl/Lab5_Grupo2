@@ -36,11 +36,12 @@ namespace Lab5_Grupo2.Controllers
                 {
                     Placa = Convert.ToInt32(collection["Placa"]),
                     Color = collection["Color"],
-                    Propietario = collection[""],
-                    Latitud = Convert.ToInt32(collection["Placa"]),
-                    Longitud = Convert.ToInt32(collection["Placa"])
+                    Propietario = collection["Propietario"],
+                    Latitud = Convert.ToInt32(collection["Latitud"]),
+                    Longitud = Convert.ToInt32(collection["Longitud"])
 
                 };
+                Singleton.Instance.ArbolVehiculos.add(newAuto);   
                 return RedirectToAction(nameof(Index));
             }
             catch

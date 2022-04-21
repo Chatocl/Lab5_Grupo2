@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Clases
@@ -50,7 +51,7 @@ namespace Clases
         }
         private Nodo23<T> Insert(Nodo23<T> Help, T value) 
         {
-            if (Help == null)// Crear hoja si esta vacia 
+            if (Help.VIzq == null)// Crear hoja si esta vacia 
             {
                 return CreateNodo23(value,default(T) ,null,null,null);
             }
@@ -154,7 +155,17 @@ namespace Clases
         }
         public void add(T Values) 
         {
-            Insert(Root, Values);
+            Nodo23<T> nuevo = CreateNodo23(Values, default(T), null, null, null);
+            if (Root.VIzq==null)
+            {
+                Root = nuevo;
+            }
+            else
+            {
+                Root = Insert(Root, Values);
+            }
+            
+            
         }
 
         public List<T> GetList()
@@ -163,27 +174,21 @@ namespace Clases
             Route(Root);
             return listaOrdenada;
         }
-        private void Route(Nodo23<T> Nodo) 
+        private void Route(Nodo23<T> nodo) 
         {
 
-                if (Nodo.LHijo != null)
-                {
-                    if (Nodo.VIzq!=null)
-                    {
-                        Route(Nodo.LHijo);
-                        listaOrdenada.Add(Nodo.VIzq);
-                        if (Nodo.VDer != null)
-                         {
-                             listaOrdenada.Add(Nodo.VDer);
-                         }
-                        Route(Nodo.CHijo);
-                        Route(Nodo.DHijo); 
+           if (nodo.VIzq != null)
+           {
+             Route(nodo.LHijo);
+             listaOrdenada.Add(nodo.VIzq);
+             if (nodo.VDer != null)
+             {
+               listaOrdenada.Add(nodo.VDer);
+             }
+             Route(nodo.CHijo);
+             Route(nodo.DHijo); 
 
-                    }
-                }
-                
-            
-            
+           }
         }
 
     }
