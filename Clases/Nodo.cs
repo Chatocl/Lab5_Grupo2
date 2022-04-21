@@ -4,15 +4,13 @@ using System.Text;
 
 namespace Clases
 {
-    public class Nodo<T> where T : IComparable<T>
+    public class Nodo23<T> where T : IComparable<T>
     {
-        public Nodo<T> PriHijo { get; set; }
-        public Nodo<T> SegHijo { get; set; }
-        public Nodo<T> TerHijo { get; set; }
-        public Nodo<T> Padre { get; set; }
-        public T Val1 { get; set; }
-        public T Val2 { get; set; }
-        public int FE { get; set; }
+        public Nodo23<T> LHijo { get; set; }
+        public Nodo23<T> CHijo { get; set; }
+        public Nodo23<T> DHijo { get; set; }
+        public T VIzq { get; set; }
+        public T VDer { get; set; }
 
     }
 }
