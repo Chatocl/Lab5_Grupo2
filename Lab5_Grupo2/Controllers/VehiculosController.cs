@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Lab5_Grupo2.Models.Datos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Lab5_Grupo2.Controllers
 {
-    public class VehiculosController1 : Controller
+    public class VehiculosController : Controller
     {
         // GET: VehiculosController1
         public ActionResult Index()
         {
-            return View();
+            return View(Singleton.Instance.ArbolVehiculos.GetList());
         }
 
         // GET: VehiculosController1/Details/5
@@ -30,6 +32,15 @@ namespace Lab5_Grupo2.Controllers
         {
             try
             {
+                var newAuto = new Models.Vehiculos()
+                {
+                    Placa = Convert.ToInt32(collection["Placa"]),
+                    Color = collection["Color"],
+                    Propietario = collection[""],
+                    Latitud = Convert.ToInt32(collection["Placa"]),
+                    Longitud = Convert.ToInt32(collection["Placa"])
+
+                };
                 return RedirectToAction(nameof(Index));
             }
             catch

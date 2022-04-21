@@ -8,6 +8,7 @@ namespace Clases
     {
         private Nodo23<T> Root = new Nodo23<T>();
         private Nodo23<T> temp = new Nodo23<T>();
+        private List<T> listaOrdenada = new List<T>();
         private T FindHelp(Nodo23<T> Help, T value ) 
         {
             if (Root == null)
@@ -155,5 +156,35 @@ namespace Clases
         {
             Insert(Root, Values);
         }
+
+        public List<T> GetList()
+        {
+            listaOrdenada.Clear();
+            Route(Root);
+            return listaOrdenada;
+        }
+        private void Route(Nodo23<T> Nodo) 
+        {
+
+                if (Nodo.LHijo != null)
+                {
+                    if (Nodo.VIzq!=null)
+                    {
+                        Route(Nodo.LHijo);
+                        listaOrdenada.Add(Nodo.VIzq);
+                        if (Nodo.VDer != null)
+                         {
+                             listaOrdenada.Add(Nodo.VDer);
+                         }
+                        Route(Nodo.CHijo);
+                        Route(Nodo.DHijo); 
+
+                    }
+                }
+                
+            
+            
+        }
+
     }
 }
