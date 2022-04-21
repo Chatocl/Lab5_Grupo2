@@ -47,6 +47,78 @@ namespace Clases
 
             return n;
         }
+
+        public T Remove(T deleteV)
+        {
+
+            Nodo23<T> aux = new Nodo23<T>();
+            T temp = Find(deleteV);
+            if(temp != null)
+            {
+                Delete(temp);
+            }
+
+            return deleteV;
+        }
+
+        void Delete(Nodo23<T> Hlp, T value)
+        {
+
+            
+
+
+                /////////////
+            if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+            {
+                if (Hlp.LHijo == null && Hlp.CHijo == null && Hlp.DHijo == null)   //No tiene hijos (hoja)
+                {
+                    if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+                    {
+                        if (value.Equals(Hlp.VIzq))
+                        {
+                            Hlp.VIzq = default(T);
+                        }
+                        if (value.Equals(Hlp.VDer))
+                        {
+                            Hlp.VDer = default(T);
+                        }
+                    }
+                    else if (Hlp.VDer == null && Hlp.VIzq != null) //Caso: Hay solo 1 elemento en el nodo izquierdo 
+                    {
+                        if (value.Equals(Hlp.VIzq))//Sujeto a eliminación el if (creo que no sería util)
+                        {
+                            Hlp.VIzq = default(T);
+                        }
+
+                    }
+                    else if (Hlp.VDer != null && Hlp.VIzq == null) //Caso: Hay solo 1 elemento en el nodo derecho
+                    {
+
+                        if (value.Equals(Hlp.VDer)) //Sujeto a eliminación el if
+                        {
+                            Hlp.VDer = default(T);
+                        }
+                    }
+                }
+                else if (Hlp.LHijo == null && Hlp.CHijo == null && Hlp.DHijo == null) // Tiene hijos    
+                {
+
+                }
+
+            }
+            else if(Hlp.VDer != null && Hlp.VIzq == null) //Caso: Hay solo 1 elemento en el nodo
+            {
+
+            }
+          
+        }
+
+        Nodo23<T> RotDer(Nodo23<T> nodo)
+        {
+
+            return nodo;
+        }
+
         private Nodo23<T> Insert(Nodo23<T> Help, T value) 
         {
             if (Help == null)// Crear hoja si esta vacia 
@@ -147,6 +219,8 @@ namespace Clases
             }
             
         }
+
+
         public T Find(T value) 
         {
             return FindHelp(Root, value);
