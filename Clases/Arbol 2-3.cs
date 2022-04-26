@@ -167,7 +167,6 @@ namespace Clases
             
             
         }
-
         public List<T> GetList()
         {
             listaOrdenada.Clear();
@@ -176,19 +175,21 @@ namespace Clases
         }
         private void Route(Nodo23<T> nodo) 
         {
+            if (nodo != null)
+            {
+                if (nodo.VIzq != null)
+                {
+                    Route(nodo.LHijo);
+                    listaOrdenada.Add(nodo.VIzq);
+                    if (nodo.VDer != null)
+                    {
+                        listaOrdenada.Add(nodo.VDer);
+                    }
+                    Route(nodo.CHijo);
+                    Route(nodo.DHijo);
 
-           if (nodo.VIzq != null)
-           {
-             Route(nodo.LHijo);
-             listaOrdenada.Add(nodo.VIzq);
-             if (nodo.VDer != null)
-             {
-               listaOrdenada.Add(nodo.VDer);
-             }
-             Route(nodo.CHijo);
-             Route(nodo.DHijo); 
-
-           }
+                }
+            }
         }
 
     }

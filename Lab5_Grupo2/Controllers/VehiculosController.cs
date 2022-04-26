@@ -1,12 +1,22 @@
-﻿using Lab5_Grupo2.Models.Datos;
+﻿using Lab5_Grupo2.Models;
+using Lab5_Grupo2.Models.Datos;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.FileIO;
 using System;
+using System.IO;
 
 namespace Lab5_Grupo2.Controllers
 {
     public class VehiculosController : Controller
     {
+        private IHostingEnvironment Environment;
+        public VehiculosController(IHostingEnvironment _environment)
+        {
+            Environment = _environment;
+
+        }
         // GET: VehiculosController1
         public ActionResult Index()
         {
@@ -91,5 +101,66 @@ namespace Lab5_Grupo2.Controllers
                 return View();
             }
         }
+
+         public ActionResult CargarArchivo(IFormFile File)
+        {
+
+            string Color = "", Propietario = "";
+            int Placa = 0, Latitud = 0, Longitud = 0;
+            try
+            {
+
+                if (File != null)
+                {
+                    string path = Path.Combine(this.Environment.WebRootPath, "Uploads");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string FileName = Path.GetFileName(File.FileName);
+                    string FilePath = Path.Combine(path, FileName);
+                    using (FileStream stream = new FileStream(FilePath, FileMode.Create))
+                    {
+                        File.CopyTo(stream);
+                    }
+                    using (TextFieldParser csvFile = new TextFieldParser(FilePath))
+                    {
+
+                        csvFile.CommentTokens = new string[] { "#" };
+                        csvFile.SetDelimiters(new string[] { "," });
+                        csvFile.HasFieldsEnclosedInQuotes = true;
+
+                        csvFile.ReadLine();
+
+                        while (!csvFile.EndOfData)
+                        {
+                            string[] fields = csvFile.ReadFields();
+                            Placa = Convert.ToInt32(fields[0]);
+                            Color = Convert.ToString(fields[1]);
+                            Propietario = Convert.ToString(fields[2]);
+                            Latitud = Convert.ToInt32(fields[3]);
+                            Longitud= Convert.ToInt32(fields[4]);
+                            Vehiculos nuevoVehiculo = new Vehiculos
+                            {
+                              Placa=Placa,
+                              Color=Color,
+                              Propietario=Propietario,
+                              Latitud=Latitud,
+                              Longitud=Longitud
+
+                            };
+                           Singleton.Instance.ArbolVehiculos.add(nuevoVehiculo);
+                        }
+                    }
+                }
+         
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                ViewData["Message"] = "Algo sucedio mal";
+                return RedirectToAction(nameof(Index));
+
+            }
     }
 }
