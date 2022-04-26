@@ -51,7 +51,7 @@ namespace Lab5_Grupo2.Controllers
                     Longitud = Convert.ToInt32(collection["Longitud"])
 
                 };
-                Singleton.Instance.ArbolVehiculos.add(newAuto);   
+                Singleton.Instance.ArbolVehiculos.add(newAuto);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -102,7 +102,7 @@ namespace Lab5_Grupo2.Controllers
             }
         }
 
-         public ActionResult CargarArchivo(IFormFile File)
+        public ActionResult CargarArchivo(IFormFile File)
         {
 
             string Color = "", Propietario = "";
@@ -139,21 +139,21 @@ namespace Lab5_Grupo2.Controllers
                             Color = Convert.ToString(fields[1]);
                             Propietario = Convert.ToString(fields[2]);
                             Latitud = Convert.ToInt32(fields[3]);
-                            Longitud= Convert.ToInt32(fields[4]);
+                            Longitud = Convert.ToInt32(fields[4]);
                             Vehiculos nuevoVehiculo = new Vehiculos
                             {
-                              Placa=Placa,
-                              Color=Color,
-                              Propietario=Propietario,
-                              Latitud=Latitud,
-                              Longitud=Longitud
+                                Placa = Placa,
+                                Color = Color,
+                                Propietario = Propietario,
+                                Latitud = Latitud,
+                                Longitud = Longitud
 
                             };
-                           Singleton.Instance.ArbolVehiculos.add(nuevoVehiculo);
+                            Singleton.Instance.ArbolVehiculos.add(nuevoVehiculo);
                         }
                     }
                 }
-         
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -162,5 +162,6 @@ namespace Lab5_Grupo2.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
+        }
     }
 }
