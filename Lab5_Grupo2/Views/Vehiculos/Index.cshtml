@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Lab5_Grupo2.Models.Vehiculos>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br /><br />
+<h4>Registro de vehículos</h4>
+<p>
+    <a asp-action="Create">Nuevo vehículo</a>
+</p>
+<form asp-action="CargarArchivo" method="post" enctype="multipart/form-data">
+    <input type="file" name="File"  value="Seleccionar archivo" class="btn btn-outline-secondary"/>
+    <input type="submit" value="Importar" class="btn btn-outline-secondary" />
+</form>
+<table class="table">
+    <thead style="background-color: #293241 ">
+        <tr>
+            <th style="color:aliceblue">Placa</th>
+            <th style="color:aliceblue">Color</th>
+            <th style="color:aliceblue">Propietario</th>
+            <th style="color:aliceblue">Latitud</th>
+            <th style="color:aliceblue">Longitud</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Placa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Propietario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Latitud)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Longitud)
+                </td>
+               
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Placa }) |
+                    @Html.ActionLink("Info", "Details", new { id = item.Placa}) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Placa })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

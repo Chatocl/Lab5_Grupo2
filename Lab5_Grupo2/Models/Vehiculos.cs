@@ -12,6 +12,7 @@ namespace Lab5_Grupo2.Models
     public class Vehiculos: IComparable<Vehiculos>
     {
         [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [StringLength(6)]
         public int Placa { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
