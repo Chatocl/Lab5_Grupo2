@@ -50,6 +50,38 @@ namespace Clases
             return n;
         }
 
+        public T Edit(T value)
+        {
+            Nodo23<T> Help = Root;
+            if (Root == null)
+            {
+                return default(T);
+            }
+            if (Help.VIzq != null && value.CompareTo(Help.VIzq) == 0)
+            {
+                Help.VIzq = value;
+                return Help.VIzq;
+            }
+            if (Help.VDer != null && value.CompareTo(Help.VDer) == 0)
+            {
+                Help.VDer = value;
+                return Help.VDer;
+            }
+
+            if (value.CompareTo(Help.VIzq) < 0)
+            {
+                return FindHelp(Help.LHijo, value);
+            }
+            else if (value.CompareTo(Help.VDer) < 0)
+            {
+                return FindHelp(Help.CHijo, value);
+            }
+            else
+            {
+                return FindHelp(Help.DHijo, value);
+            }
+        }
+
         public T Remove(T deleteV)
         {
 
@@ -178,10 +210,7 @@ namespace Clases
           
         }
 
-        Nodo23<T> RotDer(Nodo23<T> nodo)
-        {
-            return nodo;
-        }
+      
 
         private Nodo23<T> Insert(Nodo23<T> Help, T value)
         {
