@@ -10,19 +10,19 @@ namespace Clases
         private Nodo23<T> Root = new Nodo23<T>();
         private Nodo23<T> temp = new Nodo23<T>();
         private List<T> listaOrdenada = new List<T>();
-        private T FindHelp(Nodo23<T> Help, T value ) 
+        private Nodo23<T> FindHelp(Nodo23<T> Help, T value ) 
         {
             if (Root == null)
             {
-                return default(T);
+                return default;
             }
             if (Help.VIzq != null && value.CompareTo(Help.VIzq)==0)
             {
-                return Help.VIzq;
+                return Help;
             }
             if (Help.VDer != null && value.CompareTo(Help.VDer) == 0)
             {
-                return Help.VIzq;
+                return Help;
             }
 
             if (value.CompareTo(Help.VIzq) < 0)
@@ -54,10 +54,10 @@ namespace Clases
         {
 
             Nodo23<T> aux = new Nodo23<T>();
-            T temp = Find(deleteV);
-            if(temp != null)
+            aux = FindHelp(Root, deleteV);
+            if (aux != null)
             {
-                //Delete(temp);
+                Delete(aux,deleteV);
             }
 
             return deleteV;
@@ -129,49 +129,7 @@ namespace Clases
             }
 
 
-            /////////////
-            if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
-            {
-                if (Hlp.LHijo == null && Hlp.CHijo == null && Hlp.DHijo == null)   //No tiene hijos (hoja)
-                {
-                    if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
-                    {
-                        if (value.Equals(Hlp.VIzq))
-                        {
-                            Hlp.VIzq = default(T);
-                        }
-                        if (value.Equals(Hlp.VDer))
-                        {
-                            Hlp.VDer = default(T);
-                        }
-                    }
-                    else if (Hlp.VDer == null && Hlp.VIzq != null) //Caso: Hay solo 1 elemento en el nodo izquierdo 
-                    {
-                        if (value.Equals(Hlp.VIzq))//Sujeto a eliminación el if (creo que no sería util)
-                        {
-                            Hlp.VIzq = default(T);
-                        }
-
-                    }
-                    else if (Hlp.VDer != null && Hlp.VIzq == null) //Caso: Hay solo 1 elemento en el nodo derecho
-                    {
-
-                        if (value.Equals(Hlp.VDer)) //Sujeto a eliminación el if
-                        {
-                            Hlp.VDer = default(T);
-                        }
-                    }
-                }
-                else if (Hlp.LHijo == null && Hlp.CHijo == null && Hlp.DHijo == null) // Tiene hijos    
-                {
-
-                }
-
-            }
-            else if(Hlp.VDer != null && Hlp.VIzq == null) //Caso: Hay solo 1 elemento en el nodo
-            {
-
-            }
+           
           
         }
 
@@ -289,10 +247,10 @@ namespace Clases
         }
 
 
-        public T Find(T value) 
-        {
-            return FindHelp(Root, value);
-        }
+        //public T Find(T value) 
+        //{
+        //    return; //FindHelp(Root, value);
+        //}
         public void add(T Values) 
         {
             Nodo23<T> nuevo = CreateNodo23(Values, default(T), null, null, null);

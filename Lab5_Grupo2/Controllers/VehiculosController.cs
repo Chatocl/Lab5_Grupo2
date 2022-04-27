@@ -74,6 +74,7 @@ namespace Lab5_Grupo2.Controllers
         // GET: VehiculosController1/Delete/5
         public ActionResult Delete(int id)
         {
+           
             return View();
         }
 
@@ -84,6 +85,8 @@ namespace Lab5_Grupo2.Controllers
         {
             try
             {
+               // Singleton.Instance.ArbolVehiculos.Remove(a => a.VIzq == id);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
