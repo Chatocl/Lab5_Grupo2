@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.IO;
+using System.Linq;
+using System.Diagnostics;
 
 namespace Lab5_Grupo2.Controllers
 {
@@ -64,7 +66,8 @@ namespace Lab5_Grupo2.Controllers
         // GET: VehiculosController1/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+            return View(viewVehiculo);
         }
 
         // POST: VehiculosController1/Edit/5
@@ -74,6 +77,19 @@ namespace Lab5_Grupo2.Controllers
         {
             try
             {
+                var viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+                int Aux = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id).Placa;
+                Singleton.Instance.ArbolVehiculos.Remove(viewVehiculo);
+                var NewVehiculo = new Models.Vehiculos
+                {
+                    Placa = Aux,
+                    Color = collection["color"],
+                    Propietario=collection["propietario"],
+                    Latitud=Convert.ToInt32(collection["latitud"]),
+                    Longitud = Convert.ToInt32(collection["longitud"])
+                };
+             
+                Singleton.Instance.ArbolVehiculos.add(NewVehiculo);
                 return RedirectToAction(nameof(Index));
             }
             catch
