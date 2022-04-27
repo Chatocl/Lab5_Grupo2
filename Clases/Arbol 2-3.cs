@@ -49,17 +49,149 @@ namespace Clases
 
             return n;
         }
-        private Nodo23<T> Insert(Nodo23<T> Help, T value) 
+
+        public T Remove(T deleteV)
+        {
+
+            Nodo23<T> aux = new Nodo23<T>();
+            T temp = Find(deleteV);
+            if(temp != null)
+            {
+                //Delete(temp);
+            }
+
+            return deleteV;
+        }
+
+
+
+        void Delete(Nodo23<T> Hlp, T value)
+        {
+
+            if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+            {
+                if(value.CompareTo(Hlp.VIzq)==0)
+                {
+                    Hlp.VIzq =default;
+                }
+                if (value.CompareTo(Hlp.VDer)==0)
+                {
+                    Hlp.VDer = default(T);
+                }
+            }
+            else if((Hlp.VDer != null && Hlp.VIzq == null) && (Hlp.DHijo.VIzq!=null && Hlp.DHijo.VDer!= null)&& (Hlp.LHijo.VIzq != null || Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
+            {
+                if(value.CompareTo(Hlp.LHijo.VIzq)==0|| value.CompareTo(Hlp.LHijo.VDer) == 0)
+                {
+                    Hlp.LHijo.VIzq =default ;
+                    Hlp.LHijo.VDer = Hlp.VDer;
+                    Hlp.VDer = Hlp.DHijo.VDer;
+                    Hlp.DHijo.VDer = default;
+                }
+            }
+            else if ((Hlp.VDer == null && Hlp.VIzq != null) && (Hlp.DHijo.VIzq != null || Hlp.DHijo.VDer != null) && (Hlp.LHijo.VIzq != null && Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
+            {
+                if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
+                {
+                    Hlp.LHijo.VIzq = default;
+                    Hlp.LHijo.VDer = Hlp.VDer;
+                    Hlp.VIzq = Hlp.DHijo.VDer;
+                    Hlp.DHijo.VDer = default;
+                }
+            }
+            else if(Hlp.VIzq==null&& Hlp.VDer==null)
+            {
+                if(Hlp.DHijo.VIzq==null && Hlp.DHijo.VIzq == null)
+                {
+
+                }
+                else if ((Hlp.DHijo.VIzq != null && Hlp.DHijo.VIzq == null)&&(Hlp.LHijo.VDer !=null&&Hlp.DHijo.VIzq==null))
+                {
+                    Hlp.VIzq = Hlp.LHijo.VDer;
+                    Hlp.VDer = Hlp.DHijo.VIzq;
+                }
+                else if ((Hlp.DHijo.VIzq != null && Hlp.DHijo.VIzq == null) && (Hlp.LHijo.VDer == null && Hlp.DHijo.VIzq != null))
+                {
+                    Hlp.VIzq = Hlp.LHijo.VIzq;
+                    Hlp.VDer = Hlp.DHijo.VIzq;
+                }
+                else if ((Hlp.DHijo.VIzq == null && Hlp.DHijo.VIzq != null) && (Hlp.LHijo.VDer != null && Hlp.DHijo.VIzq == null))
+                {
+                    Hlp.VIzq = Hlp.LHijo.VDer;
+                    Hlp.VDer = Hlp.DHijo.VDer;
+                }
+                else if ((Hlp.DHijo.VIzq == null && Hlp.DHijo.VIzq != null) && (Hlp.LHijo.VDer == null && Hlp.DHijo.VIzq != null))
+                {
+                    Hlp.VIzq = Hlp.LHijo.VIzq;
+                    Hlp.VDer = Hlp.DHijo.VDer;
+                }
+
+            }
+
+
+            /////////////
+            if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+            {
+                if (Hlp.LHijo == null && Hlp.CHijo == null && Hlp.DHijo == null)   //No tiene hijos (hoja)
+                {
+                    if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+                    {
+                        if (value.Equals(Hlp.VIzq))
+                        {
+                            Hlp.VIzq = default(T);
+                        }
+                        if (value.Equals(Hlp.VDer))
+                        {
+                            Hlp.VDer = default(T);
+                        }
+                    }
+                    else if (Hlp.VDer == null && Hlp.VIzq != null) //Caso: Hay solo 1 elemento en el nodo izquierdo 
+                    {
+                        if (value.Equals(Hlp.VIzq))//Sujeto a eliminación el if (creo que no sería util)
+                        {
+                            Hlp.VIzq = default(T);
+                        }
+
+                    }
+                    else if (Hlp.VDer != null && Hlp.VIzq == null) //Caso: Hay solo 1 elemento en el nodo derecho
+                    {
+
+                        if (value.Equals(Hlp.VDer)) //Sujeto a eliminación el if
+                        {
+                            Hlp.VDer = default(T);
+                        }
+                    }
+                }
+                else if (Hlp.LHijo == null && Hlp.CHijo == null && Hlp.DHijo == null) // Tiene hijos    
+                {
+
+                }
+
+            }
+            else if(Hlp.VDer != null && Hlp.VIzq == null) //Caso: Hay solo 1 elemento en el nodo
+            {
+
+            }
+          
+        }
+
+        Nodo23<T> RotDer(Nodo23<T> nodo)
+        {
+
+            return nodo;
+        }
+
+        private Nodo23<T> Insert(Nodo23<T> Help, T value)
         {
             if (Help.VIzq == null)// Crear hoja si esta vacia 
             {
-                return CreateNodo23(value,default(T) ,null,null,null);
+                return CreateNodo23(value, default(T), null, null, null);
             }
-            if (Help.LHijo==null)
+            if (Help.LHijo == null)
             {
                 return InsertHelp(CreateNodo23(value, default(T), null, null, null));
             }
-            if (value.CompareTo(Help.VIzq)<0)
+            if (value.CompareTo(Help.VIzq) < 0)
             {
                 temp = Insert(Help.LHijo, value);
                 if (temp == Help.LHijo)
@@ -96,6 +228,12 @@ namespace Clases
                 }
             }
         }
+        //-------Métodos para eliminacion
+
+
+
+        //-------------------------
+
         private Nodo23<T> InsertHelp(Nodo23<T> Help)
         {
             if (Root.VDer == null) //Valor derecho Vacio 
@@ -149,6 +287,8 @@ namespace Clases
             }
             
         }
+
+
         public T Find(T value) 
         {
             return FindHelp(Root, value);
