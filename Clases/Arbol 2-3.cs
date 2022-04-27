@@ -57,13 +57,16 @@ namespace Clases
             T temp = Find(deleteV);
             if(temp != null)
             {
-                //Delete(temp);
+                Delete(temp);
             }
 
             return deleteV;
         }
 
-
+        private void Delete(T temp)
+        {
+            throw new NotImplementedException();
+        }
 
         void Delete(Nodo23<T> Hlp, T value)
         {
@@ -180,11 +183,6 @@ namespace Clases
             return nodo;
         }
 
-        //Delete (prueba)
-
-
-
-
         private Nodo23<T> Insert(Nodo23<T> Help, T value)
         {
             if (Help.VIzq == null)// Crear hoja si esta vacia 
@@ -234,14 +232,15 @@ namespace Clases
         }
         //-------Métodos para eliminacion
 
-        /// version de prueba
+        /// version de prueba 
+        /*
         public bool Eliminar(Arbol_2_3)
         {
             Nodo23<T> removeNodo = Search(Nodo23<T>);
             if (removeNodo != null)
             {
-                Equivalent(ref removeNodo, ref Arbol_2_3);
-                FixingTree(removeNodo, Arbol_2_3);
+                Equivalente(ref removeNodo, ref Arbol_2_3);
+                Tree(removeNodo, Arbol_2_3);
                 return true;
             }
             else
@@ -249,22 +248,7 @@ namespace Clases
                 return false;
             }
         }
-
-        private void FixingTree(object removeBranch, object code)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Equivalent(ref object removeBranch, ref object code)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Nodo23<T> Search(Nodo23<T> nodo23)
-        {
-            throw new NotImplementedException();
-        }
-
+        */
 
         //-------------------------
 
@@ -323,7 +307,7 @@ namespace Clases
         }
 
 
-        public T Find(T value) 
+        public T Find(T value) //Para encontrar
         {
             return FindHelp(Root, value);
         }
@@ -338,8 +322,6 @@ namespace Clases
             {
                 Root = Insert(Root, Values);
             }
-            
-            
         }
         public List<T> GetList()
         {
@@ -361,7 +343,6 @@ namespace Clases
                     }
                     Route(nodo.CHijo);
                     Route(nodo.DHijo);
-
                 }
             }
         }
