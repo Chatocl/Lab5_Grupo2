@@ -214,13 +214,14 @@ namespace Clases
 
         private Nodo23<T> Insert(Nodo23<T> Help, T value)
         {
+            Nodo23<T> temp = new Nodo23<T>();
             if (Help.VIzq == null)// Crear hoja si esta vacia 
             {
                 return CreateNodo23(value, default(T), null, null, null);
             }
             if (Help.LHijo == null)
             {
-                return InsertHelp(CreateNodo23(value, default(T), null, null, null));
+                return InsertHelp(Help,CreateNodo23(value, default(T), null, null, null));
             }
             if (value.CompareTo(Help.VIzq) < 0)
             {
@@ -231,20 +232,21 @@ namespace Clases
                 }
                 else
                 {
-                    return InsertHelp(temp);
+                    return InsertHelp(Help,temp);
                 }
             }
-            else if (Help.VDer.CompareTo(default(T)) == 0 || value.CompareTo(Help.VDer) < 0)
+            else if (Help.VDer == null || value.CompareTo(Help.VDer) < 0)
             {
-                temp = Insert(Help.CHijo, value);
-                if (temp == Help.CHijo)
-                {
-                    return Help;
-                }
-                else
-                {
-                    return InsertHelp(temp);
-                }
+                    temp = Insert(Help.CHijo, value);
+                    if (temp == Help.CHijo)
+                    {
+                        return Help;
+                    }
+                    else
+                    {
+                        return InsertHelp(Help,temp);
+                    }
+
             }
             else
             {
@@ -255,81 +257,61 @@ namespace Clases
                 }
                 else
                 {
-                    return InsertHelp(temp);
+                    return InsertHelp(Help,temp);
                 }
             }
         }
-        //-------Métodos para eliminacion
 
-        /// version de prueba 
-        /*
-        public bool Eliminar(Arbol_2_3)
+
+        private Nodo23<T> InsertHelp(Nodo23<T> Father, Nodo23<T> Help)
         {
-            Nodo23<T> removeNodo = Search(Nodo23<T>);
-            if (removeNodo != null)
+            if (Father.VDer == null) //Valor derecho Vacio 
             {
-                Equivalente(ref removeNodo, ref Arbol_2_3);
-                Tree(removeNodo, Arbol_2_3);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        */
-
-        //-------------------------
-
-        private Nodo23<T> InsertHelp(Nodo23<T> Help)
-        {
-            if (Root.VDer == null) //Valor derecho Vacio 
-            {
-                if (Root.VIzq.CompareTo(Help.VIzq) < 0)
+                if (Father.VIzq.CompareTo(Help.VIzq) < 0)
                 {
-                    Root.VDer = Help.VIzq;
-                    Root.CHijo = Help.LHijo;
-                    Root.DHijo = Help.CHijo;
+                    Father.VDer = Help.VIzq;
+                    Father.CHijo = Help.LHijo;
+                    Father.DHijo = Help.CHijo;
                 }
                 else
                 {
-                    Root.VDer = Root.VIzq;
-                    Root.DHijo = Root.CHijo;
-                    Root.VIzq = Help.VIzq;
-                    Root.CHijo = Help.CHijo;
+                    Father.VDer = Father.VIzq;
+                    Father.DHijo = Father.CHijo;
+                    Father.VIzq = Help.VIzq;
+                    Father.CHijo = Help.CHijo;
                 }
-                return Root;
+                return Father;
             }
-            else if (Root.VIzq.CompareTo(Help.VIzq) >= 0)//En Insertar Izquierda
+            else if (Father.VIzq.CompareTo(Help.VIzq) >= 0)//En Insertar Izquierda
             {
                 Nodo23<T> Temp2 = new Nodo23<T>();
-                Temp2 = CreateNodo23(Root.VDer,default(T),Help,Root,null);
-                Help.LHijo = Root.LHijo;
-                Root.LHijo=Root.CHijo;
-                Root.CHijo=Root.DHijo;
-                Root.DHijo = null;
-                Root.VIzq = Root.VDer;
-                Root.VDer = default(T);
+                Temp2 = CreateNodo23(Father.VDer,default(T),Help,Father,null);
+                Help.LHijo = Father.LHijo;
+                Father.LHijo=Father.CHijo;
+                Father.CHijo=Father.DHijo;
+                Father.DHijo = null;
+                Father.VIzq = Father.VDer;
+                Father.VDer = default(T);
 
                 return Temp2;
             }
-            else if (Root.VDer.CompareTo(Help.VIzq)>=0) // Insetar en el Centro
+            else if (Father.VDer.CompareTo(Help.VIzq)>=0) // Insetar en el Centro
             {
                 Nodo23<T> Temp3 = new Nodo23<T>();
-                Temp3 = CreateNodo23(Root.VDer, default(T), Help.CHijo, Root.DHijo, null);
+                Temp3 = CreateNodo23(Father.VDer, default(T), Help.CHijo, Father.DHijo, null);
                 Help.CHijo = Temp3;
-                Help.LHijo= Root;
-                Root.VDer = default(T);
-                Root.DHijo = null;
+                Help.LHijo= Father;
+                Father.VDer = default(T);
+                Father.DHijo = null;
                 return Help;
             }
             else // Insertar en Derecha
             {
                 Nodo23<T> Temp4 = new Nodo23<T>();
-                Temp4 = CreateNodo23(Root.VDer, default(T),Root, Help, null);
-                Help.LHijo = Root.DHijo;
-                Root.DHijo = null; 
-                Root.VDer= default(T);
+                Temp4 = CreateNodo23(Father.VDer, default(T),Father, Help, null);
+                Help.LHijo = Father.DHijo;
+                Father.DHijo = null; 
+                Father.VDer= default(T);
                 return Temp4;
             }
             
@@ -366,11 +348,11 @@ namespace Clases
                 {
                     Route(nodo.LHijo);
                     listaOrdenada.Add(nodo.VIzq);
+                    Route(nodo.CHijo);
                     if (nodo.VDer != null)
                     {
                         listaOrdenada.Add(nodo.VDer);
                     }
-                    Route(nodo.CHijo);
                     Route(nodo.DHijo);
                 }
             }
