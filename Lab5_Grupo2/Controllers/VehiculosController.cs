@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Lab5_Grupo2.Controllers
 {
@@ -26,7 +27,8 @@ namespace Lab5_Grupo2.Controllers
         // GET: VehiculosController1/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var ViewAuto = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+            return View(ViewAuto);
         }
 
         // GET: VehiculosController1/Create
