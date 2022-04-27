@@ -25,7 +25,8 @@ namespace Lab5_Grupo2.Controllers
 
         // GET: VehiculosController1/Details/5
         public ActionResult Details(int id)
-        {
+        { 
+        
             return View();
         }
 
