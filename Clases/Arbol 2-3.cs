@@ -84,7 +84,7 @@ namespace Clases
             return FindHelp(Root, value);
         }
 
-        public T Remove(T deleteV)
+        public void Remove(T deleteV)
         {
 
             Nodo23<T> aux = new Nodo23<T>();
@@ -94,7 +94,7 @@ namespace Clases
                 Delete(aux, deleteV);
             }
 
-            return deleteV;
+            
         }
 
 
@@ -109,13 +109,13 @@ namespace Clases
             {
                 if (Hlp.VDer != null || Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
                 {
-                    if (value.CompareTo(Hlp.VIzq) == 0)
+                    if ((value.CompareTo(Hlp.VIzq)) == 0)
                     {
-                        Hlp.VIzq = default;
+                        Hlp = null;
                     }
-                    if (value.CompareTo(Hlp.VDer) == 0)
+                    else if (value.CompareTo(Hlp.VDer) == 0)
                     {
-                        Hlp.VDer = default(T);
+                        Hlp = null;
                     }
                 }
             }
