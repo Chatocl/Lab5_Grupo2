@@ -77,13 +77,10 @@ namespace Clases
 
             return n;
         }
-
-        
         public T Edit(T value)
         {
             return FindHelp(Root, value);
         }
-
         public T Remove(T deleteV)
         {
 
@@ -96,8 +93,6 @@ namespace Clases
 
             return deleteV;
         }
-
-
         void Delete(Nodo23<T> Hlp, T value)
         {
 
@@ -165,8 +160,6 @@ namespace Clases
 
 
         }
-
-
         private Nodo23<T> Insert(Nodo23<T> Help, T value)
         {
             Nodo23<T> temp = new Nodo23<T>();
@@ -216,8 +209,6 @@ namespace Clases
                 }
             }
         }
-
-
         private Nodo23<T> InsertHelp(Nodo23<T> Father, Nodo23<T> Help)
         {
             if (Father.VDer == null) //Valor derecho Vacio 
@@ -271,8 +262,6 @@ namespace Clases
             }
             
         }
-
-
         public T Find(T value) //Para encontrar
         {
             return FindHelp(Root, value);

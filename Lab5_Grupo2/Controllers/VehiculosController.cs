@@ -109,6 +109,25 @@ namespace Lab5_Grupo2.Controllers
                 return View();
             }
         }
+        public ActionResult Busqueda(int id)
+        {
+            try
+            {
+                Vehiculos viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+                if (viewVehiculo == null)
+                {
+                    TempData["Bus"] = "No se encontro el vehiculo";
+
+                }
+                return View(viewVehiculo);
+            }
+            catch
+            {
+                TempData["Bus"] = "No se encontro el vehiculo";
+                return View();
+            }
+        }
+  
 
         public ActionResult CargarArchivo(IFormFile File)
         {
