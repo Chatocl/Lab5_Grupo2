@@ -81,7 +81,7 @@ namespace Clases
         {
             return FindHelp(Root, value);
         }
-        public T Remove(T deleteV)
+        public void Remove(T deleteV)
         {
 
             Nodo23<T> aux = new Nodo23<T>();
@@ -91,71 +91,158 @@ namespace Clases
                 Delete(aux, deleteV);
             }
 
-            return deleteV;
+            //return deleteV;
         }
         void Delete(Nodo23<T> Hlp, T value)
         {
 
-            if (Hlp.VDer != null && Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+
+            /////---CAmbios del delete
+
+
+            if (Hlp.DHijo == null && Hlp.CHijo == null && Hlp.LHijo == null) //Caso 1: Eliminación nodo sin hijos
             {
-                if (value.CompareTo(Hlp.VIzq) == 0)
+                if (Hlp.VDer != null || Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
                 {
-                    Hlp.VIzq = default;
-                }
-                if (value.CompareTo(Hlp.VDer) == 0)
-                {
-                    Hlp.VDer = default(T);
-                }
-            }
-            else if ((Hlp.VDer != null && Hlp.VIzq == null) && (Hlp.DHijo.VIzq != null && Hlp.DHijo.VDer != null) && (Hlp.LHijo.VIzq != null || Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
-            {
-                if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
-                {
-                    Hlp.LHijo.VIzq = default;
-                    Hlp.LHijo.VDer = Hlp.VDer;
-                    Hlp.VDer = Hlp.DHijo.VDer;
-                    Hlp.DHijo.VDer = default;
+                    if ((value.CompareTo(Hlp.VIzq) == 0)) 
+                    {
+                        Hlp.VIzq = default;
+                    }
+                    else if (value.CompareTo(Hlp.VDer) == 0)
+                    {
+                        Hlp.VDer = default;
+                    }
                 }
             }
-            else if ((Hlp.VDer == null && Hlp.VIzq != null) && (Hlp.DHijo.VIzq != null || Hlp.DHijo.VDer != null) && (Hlp.LHijo.VIzq != null && Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
+            else if ((Hlp.DHijo == null && Hlp.CHijo == null && Hlp.LHijo != null) || (Hlp.DHijo == null && Hlp.CHijo != null && Hlp.LHijo == null) || (Hlp.DHijo != null && Hlp.CHijo == null && Hlp.LHijo == null))// Caso 2: Eliminación nodo con 1 hijo
             {
-                if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
+                if (Hlp.VDer != null || Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
                 {
-                    Hlp.LHijo.VIzq = default;
-                    Hlp.LHijo.VDer = Hlp.VDer;
-                    Hlp.VIzq = Hlp.DHijo.VDer;
-                    Hlp.DHijo.VDer = default;
+                    if (value.CompareTo(Hlp.VIzq) == 0)
+                    {
+
+                        Hlp.VIzq = default;
+                    }
+                    if (value.CompareTo(Hlp.VDer) == 0)
+                    {
+                        Hlp.VDer = default(T);
+                    }
                 }
-            }
-            else if (Hlp.VIzq == null && Hlp.VDer == null)
-            {
-                if (Hlp.DHijo.VIzq == null && Hlp.DHijo.VIzq == null)
+                else if ((Hlp.VDer != null && Hlp.VIzq == null) && (Hlp.DHijo.VIzq != null && Hlp.DHijo.VDer != null) && (Hlp.LHijo.VIzq != null || Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
                 {
+                    if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
+                    {
+                        Hlp.LHijo.VIzq = default;
+                        Hlp.LHijo.VDer = Hlp.VDer;
+                        Hlp.VDer = Hlp.CHijo.VDer;
+                        Hlp.CHijo = null;
+                    }
+                }
+                else if ((Hlp.VDer == null && Hlp.VIzq != null) && (Hlp.CHijo.VIzq != null || Hlp.CHijo.VDer != null) && (Hlp.LHijo.VIzq != null && Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
+                {
+                    if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
+                    {
+                        Hlp.LHijo.VIzq = default;
+                        Hlp.LHijo.VDer = Hlp.VDer;
+                        Hlp.VIzq = Hlp.CHijo.VDer;
+                        Hlp.CHijo = null;
+                    }
+                }
+                else if (Hlp.VIzq == null && Hlp.VDer == null)
+                {
+                    if (Hlp.CHijo.VIzq == null && Hlp.CHijo.VIzq == null)
+                    {
+
+                    }
+                    else if ((Hlp.CHijo.VIzq != null && Hlp.CHijo.VIzq == null) && (Hlp.LHijo.VDer != null && Hlp.CHijo.VIzq == null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VDer;
+                        Hlp.VDer = Hlp.CHijo.VIzq;
+                    }
+                    else if ((Hlp.CHijo.VIzq != null && Hlp.CHijo.VIzq == null) && (Hlp.LHijo.VDer == null && Hlp.CHijo.VIzq != null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VIzq;
+                        Hlp.VDer = Hlp.CHijo.VIzq;
+                    }
+                    else if ((Hlp.CHijo.VIzq == null && Hlp.CHijo.VIzq != null) && (Hlp.LHijo.VDer != null && Hlp.CHijo.VIzq == null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VDer;
+                        Hlp.VDer = Hlp.CHijo.VDer;
+                    }
+                    else if ((Hlp.CHijo.VIzq == null && Hlp.CHijo.VIzq != null) && (Hlp.LHijo.VDer == null && Hlp.CHijo.VIzq != null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VIzq;
+                        Hlp.VDer = Hlp.DHijo.VDer;
+
+                    }
 
                 }
-                else if ((Hlp.DHijo.VIzq != null && Hlp.DHijo.VIzq == null) && (Hlp.LHijo.VDer != null && Hlp.DHijo.VIzq == null))
-                {
-                    Hlp.VIzq = Hlp.LHijo.VDer;
-                    Hlp.VDer = Hlp.DHijo.VIzq;
-                }
-                else if ((Hlp.DHijo.VIzq != null && Hlp.DHijo.VIzq == null) && (Hlp.LHijo.VDer == null && Hlp.DHijo.VIzq != null))
-                {
-                    Hlp.VIzq = Hlp.LHijo.VIzq;
-                    Hlp.VDer = Hlp.DHijo.VIzq;
-                }
-                else if ((Hlp.DHijo.VIzq == null && Hlp.DHijo.VIzq != null) && (Hlp.LHijo.VDer != null && Hlp.DHijo.VIzq == null))
-                {
-                    Hlp.VIzq = Hlp.LHijo.VDer;
-                    Hlp.VDer = Hlp.DHijo.VDer;
-                }
-                else if ((Hlp.DHijo.VIzq == null && Hlp.DHijo.VIzq != null) && (Hlp.LHijo.VDer == null && Hlp.DHijo.VIzq != null))
-                {
-                    Hlp.VIzq = Hlp.LHijo.VIzq;
-                    Hlp.VDer = Hlp.DHijo.VDer;
-                }
 
             }
+            else if ((Hlp.DHijo != null && Hlp.CHijo != null && Hlp.LHijo != null) || (Hlp.DHijo != null && Hlp.CHijo != null && Hlp.LHijo == null) || (Hlp.DHijo != null && Hlp.CHijo == null && Hlp.LHijo != null) || (Hlp.DHijo == null && Hlp.CHijo != null && Hlp.LHijo != null))// Caso, hay un dos o tres hijos
+            {
+                if (Hlp.VDer != null || Hlp.VIzq != null) //Caso -> hay 2 elementos en el nodo
+                {
+                    if (value.CompareTo(Hlp.VIzq) == 0)
+                    {
 
+                        Hlp.VIzq = default;
+                    }
+                    if (value.CompareTo(Hlp.VDer) == 0)
+                    {
+                        Hlp.VDer = default(T);
+                    }
+                }
+                else if ((Hlp.VDer != null && Hlp.VIzq == null) && (Hlp.CHijo.VIzq != null && Hlp.CHijo.VDer != null) && (Hlp.LHijo.VIzq != null || Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
+                {
+                    if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
+                    {
+                        Hlp.LHijo.VIzq = default;
+                        Hlp.LHijo.VDer = Hlp.VDer;
+                        Hlp.VDer = Hlp.CHijo.VDer;
+                        Hlp.CHijo = null;
+                    }
+                }
+                else if ((Hlp.VDer == null && Hlp.VIzq != null) && (Hlp.CHijo.VIzq != null || Hlp.CHijo.VDer != null) && (Hlp.LHijo.VIzq != null && Hlp.LHijo.VDer != null))//El valor derecho del nodopadre, dos valores en el nodo derecho y uno en el izquiedo
+                {
+                    if (value.CompareTo(Hlp.LHijo.VIzq) == 0 || value.CompareTo(Hlp.LHijo.VDer) == 0)
+                    {
+                        Hlp.LHijo.VIzq = default;
+                        Hlp.LHijo.VDer = Hlp.VDer;
+                        Hlp.VIzq = Hlp.CHijo.VDer;
+                        Hlp.CHijo = null;
+                    }
+                }
+                else if (Hlp.VIzq == null && Hlp.VDer == null)
+                {
+                    if (Hlp.CHijo.VIzq == null && Hlp.CHijo.VIzq == null)
+                    {
+
+                    }
+                    else if ((Hlp.CHijo.VIzq != null && Hlp.CHijo.VIzq == null) && (Hlp.LHijo.VDer != null && Hlp.CHijo.VIzq == null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VDer;
+                        Hlp.VDer = Hlp.CHijo.VIzq;
+                    }
+                    else if ((Hlp.CHijo.VIzq != null && Hlp.CHijo.VIzq == null) && (Hlp.LHijo.VDer == null && Hlp.CHijo.VIzq != null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VIzq;
+                        Hlp.VDer = Hlp.CHijo.VIzq;
+                    }
+                    else if ((Hlp.CHijo.VIzq == null && Hlp.CHijo.VIzq != null) && (Hlp.LHijo.VDer != null && Hlp.CHijo.VIzq == null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VDer;
+                        Hlp.VDer = Hlp.CHijo.VDer;
+                    }
+                    else if ((Hlp.CHijo.VIzq == null && Hlp.CHijo.VIzq != null) && (Hlp.LHijo.VDer == null && Hlp.CHijo.VIzq != null))
+                    {
+                        Hlp.VIzq = Hlp.LHijo.VIzq;
+                        Hlp.VDer = Hlp.CHijo.VDer;
+
+                    }
+
+                }
+            }
 
 
 
