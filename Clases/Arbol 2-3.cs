@@ -22,20 +22,32 @@ namespace Clases
             }
             if (Help.VDer != null && value.CompareTo(Help.VDer) == 0)
             {
-                return Help.VIzq;
+                return Help.VDer;
             }
 
-            if (value.CompareTo(Help.VIzq) < 0)
+            if (value.CompareTo(Help.VIzq) < 0 && Help.LHijo != null)
             {
                 return FindHelp(Help.LHijo, value);
             }
-            else if (value.CompareTo(Help.VDer) < 0) 
+            else if (value.CompareTo(Help.VDer) < 0 && Help.VDer != null)
+            {
+                return FindHelp(Help.CHijo, value);
+            }
+            else if (Help.DHijo != null)
+            {
+                return FindHelp(Help.DHijo, value);
+            }
+            else if (Help.LHijo != null)
+            {
+                return FindHelp(Help.LHijo, value);
+            }
+            else if (Help.CHijo != null)
             {
                 return FindHelp(Help.CHijo, value);
             }
             else
             {
-                return FindHelp(Help.DHijo, value);
+                return value;
             }
         }
         private Nodo23<T> FindNodo(Nodo23<T> Help, T value)
@@ -53,17 +65,29 @@ namespace Clases
                 return Help;
             }
 
-            if (value.CompareTo(Help.VIzq) < 0)
+            if (value.CompareTo(Help.VIzq) < 0 && Help.LHijo != null)
             {
                 return FindNodo(Help.LHijo, value);
             }
-            else if (value.CompareTo(Help.VDer) < 0)
+            else if (value.CompareTo(Help.VDer) < 0 && Help.VDer != null)
+            {
+                return FindNodo(Help.CHijo, value);
+            }
+            else if(Help.DHijo != null)
+            {
+                return FindNodo(Help.DHijo, value);
+            }
+            else if(Help.LHijo != null)
+            {
+                return FindNodo(Help.LHijo,value);
+            }
+            else if (Help.CHijo != null)
             {
                 return FindNodo(Help.CHijo, value);
             }
             else
             {
-                return FindNodo(Help.DHijo, value);
+                return Help;
             }
         }
         private Nodo23<T> CreateNodo23(T Value1, T Value2, Nodo23<T> L, Nodo23<T> C, Nodo23<T> D) 
@@ -72,9 +96,9 @@ namespace Clases
             n.VIzq = Value1;
             n.VDer = Value2;
             n.LHijo = L;
-            n.DHijo = D;
             n.CHijo = C;
-
+            n.DHijo = D;
+           
             return n;
         }
         public T Edit(T value)
@@ -271,7 +295,7 @@ namespace Clases
                     return InsertHelp(Help,temp);
                 }
             }
-            else if (Help.VDer == null || value.CompareTo(Help.VDer) < 0)
+            else if ((Help.VDer == null) || (value.CompareTo(Help.VDer) < 0))
             {
                     temp = Insert(Help.CHijo, value);
                     if (temp == Help.CHijo)
@@ -331,9 +355,7 @@ namespace Clases
             }
             else if (Father.VDer.CompareTo(Help.VIzq)>=0) // Insetar en el Centro
             {
-                Nodo23<T> Temp3 = new Nodo23<T>();
-                Temp3 = CreateNodo23(Father.VDer, default(T), Help.CHijo, Father.DHijo, null);
-                Help.CHijo = Temp3;
+                Help.CHijo = CreateNodo23(Father.VDer, default(T), Help.CHijo, Father.DHijo, null);
                 Help.LHijo= Father;
                 Father.VDer = default(T);
                 Father.DHijo = null;
@@ -341,12 +363,12 @@ namespace Clases
             }
             else // Insertar en Derecha
             {
-                Nodo23<T> Temp4 = new Nodo23<T>();
-                Temp4 = CreateNodo23(Father.VDer, default(T),Father, Help, null);
+                Nodo23<T> Temp3 = new Nodo23<T>();
+                Temp3 = CreateNodo23(Father.VDer, default(T),Father, Help, null);
                 Help.LHijo = Father.DHijo;
                 Father.DHijo = null; 
                 Father.VDer= default(T);
-                return Temp4;
+                return Temp3;
             }
             
         }
@@ -368,17 +390,17 @@ namespace Clases
         {
             if (nodo != null)
             {
-                if (nodo.VIzq != null)
+                Route(nodo.LHijo);
+                if (nodo.VIzq!=null)
                 {
-                    Route(nodo.LHijo);
-                    listaOrdenada.Add(nodo.VIzq);
-                    Route(nodo.CHijo);
-                    if (nodo.VDer != null)
-                    {
-                        listaOrdenada.Add(nodo.VDer);
-                    }
-                    Route(nodo.DHijo);
+                   listaOrdenada.Add(nodo.VIzq);
                 }
+                Route(nodo.CHijo);
+                if (nodo.VDer != null)
+                {
+                    listaOrdenada.Add(nodo.VDer);
+                }
+                Route(nodo.DHijo);
             }
         }
     }
