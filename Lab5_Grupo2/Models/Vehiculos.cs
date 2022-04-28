@@ -31,7 +31,7 @@ namespace Lab5_Grupo2.Models
 
         public int CompareTo(Vehiculos Otro)
         {
-            if (Otro==null)
+            if(Otro==null)
             {
                 return 0;
             }
@@ -39,6 +39,8 @@ namespace Lab5_Grupo2.Models
             {
                 return this.Placa.CompareTo(Otro.Placa);
             }
+            
+            
         }
     }
 }
