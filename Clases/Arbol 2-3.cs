@@ -390,17 +390,17 @@ namespace Clases
         {
             if (nodo != null)
             {
-                if (nodo.VIzq != null)
+                Route(nodo.LHijo);
+                if (nodo.VIzq!=null)
                 {
-                    Route(nodo.LHijo);
-                    listaOrdenada.Add(nodo.VIzq);
-                    Route(nodo.CHijo);
-                    if (nodo.VDer != null)
-                    {
-                        listaOrdenada.Add(nodo.VDer);
-                    }
-                    Route(nodo.DHijo);
+                   listaOrdenada.Add(nodo.VIzq);
                 }
+                Route(nodo.CHijo);
+                if (nodo.VDer != null)
+                {
+                    listaOrdenada.Add(nodo.VDer);
+                }
+                Route(nodo.DHijo);
             }
         }
     }
