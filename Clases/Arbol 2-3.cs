@@ -163,14 +163,15 @@ namespace Clases
         private Nodo23<T> Insert(Nodo23<T> Help, T value)
         {
             Nodo23<T> temp = new Nodo23<T>();
-            if (Help.VIzq == null)// Crear hoja si esta vacia 
+            if (Help.VIzq == null) 
             {
                 return CreateNodo23(value, default(T), null, null, null);
             }
-            if (Help.LHijo == null)
+            if (Help.LHijo == null) // Crear hoja si esta vacia
             {
-                return InsertHelp(Help,CreateNodo23(value, default(T), null, null, null));
+                return InsertHelp(Help , CreateNodo23(value, default(T), null, null, null));
             }
+
             if (value.CompareTo(Help.VIzq) < 0)
             {
                 temp = Insert(Help.LHijo, value);
@@ -231,7 +232,7 @@ namespace Clases
             else if (Father.VIzq.CompareTo(Help.VIzq) >= 0)//En Insertar Izquierda
             {
                 Nodo23<T> Temp2 = new Nodo23<T>();
-                Temp2 = CreateNodo23(Father.VDer,default(T),Help,Father,null);
+                Temp2 = CreateNodo23(Father.VIzq,default(T),Help,Father,null);
                 Help.LHijo = Father.LHijo;
                 Father.LHijo=Father.CHijo;
                 Father.CHijo=Father.DHijo;
@@ -268,15 +269,7 @@ namespace Clases
         }
         public void add(T Values) 
         {
-            Nodo23<T> nuevo = CreateNodo23(Values, default(T), null, null, null);
-            if (Root.VIzq==null)
-            {
-                Root = nuevo;
-            }
-            else
-            {
-                Root = Insert(Root, Values);
-            }
+            Root = Insert(Root, Values);
         }
         public List<T> GetList()
         {
