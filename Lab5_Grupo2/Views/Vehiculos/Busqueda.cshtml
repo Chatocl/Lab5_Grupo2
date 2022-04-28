@@ -1,59 +1,62 @@
 ﻿@model Lab5_Grupo2.Models.Vehiculos
 
 @{
-    ViewData["Title"] = "Busqueda";
+    ViewData["Title"] = "Búsqueda";
 }
 
-<h1>Busqueda</h1>
-<div class="form-inline">
-    <form asp-action="Busqueda" method="post">
-        <input name="Busqueda" type="search" class="form-control me-2" placeholder="Placa" />
-        <button type="submit" class="btn btn-outline-success">Buscar</button>
-    </form>
+<div class="container" style="margin:30px">
+    <h1>Búsqueda</h1>
+    <h4>Vehículo</h4>
+    <br />
+    <div class="form-inline">
+        <form asp-action="Busqueda" method="post">
+            <input name="Busqueda" type="search" class="form-control me-2" placeholder="Placa" />
+            <button type="submit" class="btn btn-outline-success">Buscar</button>
+        </form>
+    </div>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Placa)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Placa)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Propietario)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Propietario)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Latitud)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Latitud)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Longitud)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Longitud)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index">Volver</a>
+    </div>
 </div>
-<div>
-    <h4>Vehiculo</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Placa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Placa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Propietario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Propietario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Latitud)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Latitud)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Longitud)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Longitud)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-@if (null != TempData["Bus"])
-{
-    <script type="text/javascript">
+    @if (null != TempData["Bus"])
+    {
+        <script type="text/javascript">
        alert('@TempData["Bus"]');
-    </script>
-}
+        </script>
+    }
 
