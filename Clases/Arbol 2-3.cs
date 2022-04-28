@@ -22,7 +22,7 @@ namespace Clases
             }
             if (Help.VDer != null && value.CompareTo(Help.VDer) == 0)
             {
-                return Help.VIzq;
+                return Help.VIzq; //VDer
             }
 
             if (value.CompareTo(Help.VIzq) < 0)
@@ -72,9 +72,9 @@ namespace Clases
             n.VIzq = Value1;
             n.VDer = Value2;
             n.LHijo = L;
-            n.DHijo = D;
             n.CHijo = C;
-
+            n.DHijo = D;
+           
             return n;
         }
         public T Edit(T value)
@@ -271,7 +271,7 @@ namespace Clases
                     return InsertHelp(Help,temp);
                 }
             }
-            else if (Help.VDer == null || value.CompareTo(Help.VDer) < 0)
+            else if ((Help.VDer == null) || (value.CompareTo(Help.VDer) < 0))
             {
                     temp = Insert(Help.CHijo, value);
                     if (temp == Help.CHijo)
@@ -331,9 +331,7 @@ namespace Clases
             }
             else if (Father.VDer.CompareTo(Help.VIzq)>=0) // Insetar en el Centro
             {
-                Nodo23<T> Temp3 = new Nodo23<T>();
-                Temp3 = CreateNodo23(Father.VDer, default(T), Help.CHijo, Father.DHijo, null);
-                Help.CHijo = Temp3;
+                Help.CHijo = CreateNodo23(Father.VDer, default(T), Help.CHijo, Father.DHijo, null);
                 Help.LHijo= Father;
                 Father.VDer = default(T);
                 Father.DHijo = null;
@@ -341,12 +339,12 @@ namespace Clases
             }
             else // Insertar en Derecha
             {
-                Nodo23<T> Temp4 = new Nodo23<T>();
-                Temp4 = CreateNodo23(Father.VDer, default(T),Father, Help, null);
+                Nodo23<T> Temp3 = new Nodo23<T>();
+                Temp3 = CreateNodo23(Father.VDer, default(T),Father, Help, null);
                 Help.LHijo = Father.DHijo;
                 Father.DHijo = null; 
                 Father.VDer= default(T);
-                return Temp4;
+                return Temp3;
             }
             
         }
