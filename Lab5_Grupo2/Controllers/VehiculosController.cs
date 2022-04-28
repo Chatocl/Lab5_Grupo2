@@ -102,6 +102,8 @@ namespace Lab5_Grupo2.Controllers
         {
             try
             {
+                var viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+                Singleton.Instance.ArbolVehiculos.Remove(viewVehiculo);
                 return RedirectToAction(nameof(Index));
             }
             catch
