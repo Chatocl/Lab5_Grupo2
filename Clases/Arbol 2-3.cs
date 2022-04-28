@@ -22,20 +22,32 @@ namespace Clases
             }
             if (Help.VDer != null && value.CompareTo(Help.VDer) == 0)
             {
-                return Help.VIzq;
+                return Help.VDer;
             }
 
-            if (value.CompareTo(Help.VIzq) < 0)
+            if (value.CompareTo(Help.VIzq) < 0 && Help.LHijo != null)
             {
                 return FindHelp(Help.LHijo, value);
             }
-            else if (value.CompareTo(Help.VDer) < 0) 
+            else if (value.CompareTo(Help.VDer) < 0 && Help.VDer != null)
+            {
+                return FindHelp(Help.CHijo, value);
+            }
+            else if (Help.DHijo != null)
+            {
+                return FindHelp(Help.DHijo, value);
+            }
+            else if (Help.LHijo != null)
+            {
+                return FindHelp(Help.LHijo, value);
+            }
+            else if (Help.CHijo != null)
             {
                 return FindHelp(Help.CHijo, value);
             }
             else
             {
-                return FindHelp(Help.DHijo, value);
+                return value;
             }
         }
         private Nodo23<T> FindNodo(Nodo23<T> Help, T value)
@@ -53,17 +65,29 @@ namespace Clases
                 return Help;
             }
 
-            if (value.CompareTo(Help.VIzq) < 0)
+            if (value.CompareTo(Help.VIzq) < 0 && Help.LHijo != null)
             {
                 return FindNodo(Help.LHijo, value);
             }
-            else if (value.CompareTo(Help.VDer) < 0)
+            else if (value.CompareTo(Help.VDer) < 0 && Help.VDer != null)
+            {
+                return FindNodo(Help.CHijo, value);
+            }
+            else if(Help.DHijo != null)
+            {
+                return FindNodo(Help.DHijo, value);
+            }
+            else if(Help.LHijo != null)
+            {
+                return FindNodo(Help.LHijo,value);
+            }
+            else if (Help.CHijo != null)
             {
                 return FindNodo(Help.CHijo, value);
             }
             else
             {
-                return FindNodo(Help.DHijo, value);
+                return Help;
             }
         }
         private Nodo23<T> CreateNodo23(T Value1, T Value2, Nodo23<T> L, Nodo23<T> C, Nodo23<T> D) 
