@@ -1,47 +1,51 @@
 ﻿@model Lab5_Grupo2.Models.Vehiculos
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Info";
 }
 
-<h1>Details</h1>
+<div class="container" style="margin:30px">
 
-<div>
-    <h4>Vehiculos</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Placa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Placa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Propietario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Propietario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Latitud)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Latitud)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Longitud)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Longitud)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <h1>Información</h1>
+    <h4>Vehículos</h4>
+    <br />
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Placa)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Placa)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Propietario)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Propietario)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Latitud)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Latitud)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Longitud)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Longitud)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index">Volver</a>
+    </div>
+    </div>
