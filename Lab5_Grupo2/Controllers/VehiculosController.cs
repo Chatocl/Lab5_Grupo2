@@ -111,17 +111,21 @@ namespace Lab5_Grupo2.Controllers
                 return View();
             }
         }
-        public ActionResult Busqueda(int id)
+        public ActionResult Busqueda(int Busqueda)
         {
             try
             {
-                Vehiculos viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
-                if (viewVehiculo == null)
+                if (Busqueda > 0)
                 {
-                    TempData["Bus"] = "No se encontro el vehiculo";
+                    Vehiculos viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == Busqueda);
+                    if (viewVehiculo == null)
+                    {
+                        TempData["Bus"] = "No se encontro el vehiculo";
 
+                    }
+                    return View(viewVehiculo);
                 }
-                return View(viewVehiculo);
+                return View();
             }
             catch
             {
@@ -129,8 +133,7 @@ namespace Lab5_Grupo2.Controllers
                 return View();
             }
         }
-  
-
+ 
         public ActionResult CargarArchivo(IFormFile File)
         {
 
