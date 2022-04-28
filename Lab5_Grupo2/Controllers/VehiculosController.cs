@@ -27,9 +27,9 @@ namespace Lab5_Grupo2.Controllers
 
         // GET: VehiculosController1/Details/5
         public ActionResult Details(int id)
-        { 
-        
-            return View();
+        {
+            var viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+            return View(viewVehiculo);
         }
 
         // GET: VehiculosController1/Create
@@ -78,18 +78,8 @@ namespace Lab5_Grupo2.Controllers
             try
             {
                 var viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
-                int Aux = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id).Placa;
-                Singleton.Instance.ArbolVehiculos.Remove(viewVehiculo);
-                var NewVehiculo = new Models.Vehiculos
-                {
-                    Placa = Aux,
-                    Color = collection["color"],
-                    Propietario=collection["propietario"],
-                    Latitud=Convert.ToInt32(collection["latitud"]),
-                    Longitud = Convert.ToInt32(collection["longitud"])
-                };
-             
-                Singleton.Instance.ArbolVehiculos.add(NewVehiculo);
+                Singleton.Instance.ArbolVehiculos.Edit(viewVehiculo).Latitud = Convert.ToInt32(collection["latitud"]);
+                Singleton.Instance.ArbolVehiculos.Edit(viewVehiculo).Longitud = Convert.ToInt32(collection["longitud"]);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -101,7 +91,8 @@ namespace Lab5_Grupo2.Controllers
         // GET: VehiculosController1/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var viewVehiculo = Singleton.Instance.ArbolVehiculos.GetList().FirstOrDefault(a => a.Placa == id);
+            return View(viewVehiculo);
         }
 
         // POST: VehiculosController1/Delete/5
